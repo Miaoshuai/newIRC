@@ -3,20 +3,42 @@
     > Author: MiaoShuai
     > E-mail:  
     > Other :  
-    > Created Time: 2016年01月28日 星期四 15时58分29秒
+    > Created Time: 2016年02月15日 星期一 20时15分22秒
  =======================================================*/
-/*所有消息的始祖基类*/
+/*各种消息处理函数*/
 
 #pragma once
 
-class Message
+#include <memory>
+#include "connection.h"
+#include "message.pb.h"
+#include "codec.h"
+#include "mysql.h"
+#include <list>
+#include <string>
+
+class User
 {
     public:
-        virtual ~Message()[]
+        std::string userName;
+        int fd;   
+};
 
-        //由子类实现的消息处理接口
-        virtual void handleMessage()
-        {
+class MessageType
+{
+    public:
+        typedef std::shared_ptr<Login> LoginPtr;
+        typedef std::shared_ptr<Register> RegisterPtr;
         
-        }
+        MessageType(ProtobufCodec codec)
+            :codec_(codec)
+        {}
+
+        void onLogin(netlib::connectionPtr conn,LoginPtr message);
+
+        void onRegister(netlib::connectionPtr conn,RegisterPtr message);
+    private:
+        Sql sql_;   //数据库
+        std::list<std::shared_ptr<User>> userList_;       
+        ProtobufCodec codec_;
 };
