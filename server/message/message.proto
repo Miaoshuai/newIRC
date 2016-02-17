@@ -1,0 +1,18 @@
+message Login
+{
+    optional string user_name=1;
+    optional string password=2;
+}
+
+message Register
+{
+    optional string user_name=1;
+    optional string password1=2;
+    optional string password2=3;
+}
+
+message Status
+{
+    optional int32 register=1;//服务端返回客户端注册的状态
+    optional int32 login=2;   //服务端返回客户端登陆的状态
+}
