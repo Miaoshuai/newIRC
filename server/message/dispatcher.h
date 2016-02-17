@@ -23,23 +23,25 @@ class Callback
     public:
         virtual ~Callback(){}
 
-        virtual void onMessage(const netlib::connectionPtr &,const MessagePtr &message);
+        virtual void onMessage(netlib::connectionPtr &,MessagePtr &message)=0;
 };
 
 template<typename T>
 class CallbackT : public Callback
 {
     public:
-        typedef std::function<void(const netlib::connectionPtr &,const std::shared_ptr<T> &message)> ProtobufMessageTCallback;
-        CallbackT(const ProtobufMessageTCallback &callback)
+        typedef std::function<void(netlib::connectionPtr,std::shared_ptr<T>)> ProtobufMessageTCallback;
+        CallbackT(ProtobufMessageTCallback &callback)
             :callback_(callback)
         {
         
         }
 
-        virtual void onMessage(const netlib::connectionPtr &conn,const MessagePtr &message)
+        void onMessage(netlib::connectionPtr &conn,MessagePtr &message)
         {
-            std::shared_ptr<T> concrete = static_cast<T>(message);
+            //调用此消息处理函数时自动进行类型转换
+            //std::shared_ptr<T> concrete(static_cast<T *>(message.get()));
+            std::shared_ptr<T> concrete = std::static_pointer_cast<T>(message);
             assert(concrete != NULL);
             callback_(conn,concrete);
         }
@@ -52,13 +54,13 @@ class CallbackT : public Callback
 class ProtobufDispatcher
 {
     public:
-        typedef std::function<void(const netlib::connectionPtr &,const MessagePtr &message)> ProtobufMessageCallback;
+        typedef std::function<void(netlib::connectionPtr &,MessagePtr &message)> ProtobufMessageCallback;
 
         explicit ProtobufDispatcher(){}
 
-        void onProtobufMessage(netlib::connectionPtr &conn,const MessagePtr &message)
+        void onProtobufMessage(netlib::connectionPtr &conn,MessagePtr &message)
         {
-            CallbackMap::iterator it = callbacks_.find(message->GetDescriptor());
+            auto it = callbacks_.find(message->GetDescriptor());
             if(it != callbacks_.end())
             {
                 it->second->onMessage(conn,message);
@@ -66,14 +68,14 @@ class ProtobufDispatcher
         }
 
         template<typename T>
-        void registerMessageCallback(const typename CallbackT<T>::ProtobufMessageTCallback &callback)
+        void registerMessageCallback(typename CallbackT<T>::ProtobufMessageTCallback callback)
         {
             std::shared_ptr<CallbackT<T>> pd(new CallbackT<T>(callback));
             callbacks_[T::descriptor()] = pd;           
         }
 
     private:
-        typedef std::map<google::protobuf::Descriptor *,std::shared_ptr<Callback>> CallbackMap;
+        typedef std::map<const google::protobuf::Descriptor *,std::shared_ptr<Callback>> CallbackMap;
 
         CallbackMap callbacks_;
 };
