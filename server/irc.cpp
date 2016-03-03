@@ -24,6 +24,8 @@
 
 typedef std::shared_ptr<Login> LoginPtr;
 typedef std::shared_ptr<Register> RegisterPtr;
+typedef std::shared_ptr<ChatMessage> ChatMessagePtr;
+typedef std::shared_ptr<Room> RoomPtr;
 
 class IrcServer
 {
@@ -32,11 +34,13 @@ class IrcServer
             :server_(ip,atoi(port.c_str()),4),
             codec_(std::bind(&ProtobufDispatcher::onProtobufMessage,&dispatcher_,std::placeholders::_1,std::placeholders::_2)),
             sql_("127.0.0.1","root","kaiji","school"),
-            messageType_(codec_,sql_,connections_,users_)
+            messageType_(codec_,sql_)
 
     {
         dispatcher_.registerMessageCallback<Login>(std::bind(&MessageType::onLogin,&messageType_,std::placeholders::_1,std::placeholders::_2));
         dispatcher_.registerMessageCallback<Register>(std::bind(&MessageType::onRegister,&messageType_,std::placeholders::_1,std::placeholders::_2));
+        dispatcher_.registerMessageCallback<ChatMessage>(std::bind(&MessageType::onChatMessage,&messageType_,std::placeholders::_1,std::placeholders::_2));
+        dispatcher_.registerMessageCallback<Room>(std::bind(&MessageType::onRoom,&messageType_,std::placeholders::_1,std::placeholders::_2));
         server_.setMessageCallback(std::bind(&ProtobufCodec::onMessage,&codec_,std::placeholders::_1,std::placeholders::_2));
     }
         void start(void)
@@ -44,22 +48,6 @@ class IrcServer
             server_.start();
         }
     private:
-        //填充
-        void fillUserMap(void)
-        {
-            MYSQL_ROW row;
-            sql_.operate("select *from user");
-            while((row = sql_.getRow()) != NULL)
-            {
-                (*users_)[row[0]] = row[1];       
-            }      
-        }
-
-        typedef std::shared_ptr<std::list<netlib::connectionPtr>> ConnectionListPtr;
-        typedef std::shared_ptr<std::map<std::string,std::string>> UserMapPtr;
-        
-        UserMapPtr users_;                  //初始化时从数据库中读出所有的用户和对应密码保存到user_中
-        ConnectionListPtr connections_;    //保存现有连接
         netlib::Server server_;
         ProtobufCodec codec_;  
         ProtobufDispatcher dispatcher_;
