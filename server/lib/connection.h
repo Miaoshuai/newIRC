@@ -23,6 +23,7 @@ namespace netlib
         public:
             int fd_;    //标示此连接的描述符
             std::string ConnectionName_;//连接的名字
+            std::string rooName_;//房间名
             Buffer inputBuffer_;    //输入buffer
             Buffer outputBuffer_;   //输出buffer
             std::shared_ptr<Epoll> epoll_;          //该连接所运行的epoll
