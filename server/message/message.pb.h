@@ -34,6 +34,8 @@ void protobuf_ShutdownFile_message_2eproto();
 class Login;
 class Register;
 class Status;
+class ChatMessage;
+class Room;
 
 // ===================================================================
 
@@ -317,12 +319,30 @@ class Status : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 login() const;
   inline void set_login(::google::protobuf::int32 value);
 
+  // optional int32 create_room = 3;
+  inline bool has_create_room() const;
+  inline void clear_create_room();
+  static const int kCreateRoomFieldNumber = 3;
+  inline ::google::protobuf::int32 create_room() const;
+  inline void set_create_room(::google::protobuf::int32 value);
+
+  // optional int32 enter_room = 4;
+  inline bool has_enter_room() const;
+  inline void clear_enter_room();
+  static const int kEnterRoomFieldNumber = 4;
+  inline ::google::protobuf::int32 enter_room() const;
+  inline void set_enter_room(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:Status)
  private:
   inline void set_has_register_();
   inline void clear_has_register_();
   inline void set_has_login();
   inline void clear_has_login();
+  inline void set_has_create_room();
+  inline void clear_has_create_room();
+  inline void set_has_enter_room();
+  inline void clear_has_enter_room();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -330,12 +350,197 @@ class Status : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::int32 register__;
   ::google::protobuf::int32 login_;
+  ::google::protobuf::int32 create_room_;
+  ::google::protobuf::int32 enter_room_;
   friend void  protobuf_AddDesc_message_2eproto();
   friend void protobuf_AssignDesc_message_2eproto();
   friend void protobuf_ShutdownFile_message_2eproto();
 
   void InitAsDefaultInstance();
   static Status* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ChatMessage : public ::google::protobuf::Message {
+ public:
+  ChatMessage();
+  virtual ~ChatMessage();
+
+  ChatMessage(const ChatMessage& from);
+
+  inline ChatMessage& operator=(const ChatMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ChatMessage& default_instance();
+
+  void Swap(ChatMessage* other);
+
+  // implements Message ----------------------------------------------
+
+  ChatMessage* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChatMessage& from);
+  void MergeFrom(const ChatMessage& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string chat_message = 1;
+  inline bool has_chat_message() const;
+  inline void clear_chat_message();
+  static const int kChatMessageFieldNumber = 1;
+  inline const ::std::string& chat_message() const;
+  inline void set_chat_message(const ::std::string& value);
+  inline void set_chat_message(const char* value);
+  inline void set_chat_message(const char* value, size_t size);
+  inline ::std::string* mutable_chat_message();
+  inline ::std::string* release_chat_message();
+  inline void set_allocated_chat_message(::std::string* chat_message);
+
+  // @@protoc_insertion_point(class_scope:ChatMessage)
+ private:
+  inline void set_has_chat_message();
+  inline void clear_has_chat_message();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* chat_message_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static ChatMessage* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Room : public ::google::protobuf::Message {
+ public:
+  Room();
+  virtual ~Room();
+
+  Room(const Room& from);
+
+  inline Room& operator=(const Room& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Room& default_instance();
+
+  void Swap(Room* other);
+
+  // implements Message ----------------------------------------------
+
+  Room* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Room& from);
+  void MergeFrom(const Room& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string what = 1;
+  inline bool has_what() const;
+  inline void clear_what();
+  static const int kWhatFieldNumber = 1;
+  inline const ::std::string& what() const;
+  inline void set_what(const ::std::string& value);
+  inline void set_what(const char* value);
+  inline void set_what(const char* value, size_t size);
+  inline ::std::string* mutable_what();
+  inline ::std::string* release_what();
+  inline void set_allocated_what(::std::string* what);
+
+  // optional string room_name = 2;
+  inline bool has_room_name() const;
+  inline void clear_room_name();
+  static const int kRoomNameFieldNumber = 2;
+  inline const ::std::string& room_name() const;
+  inline void set_room_name(const ::std::string& value);
+  inline void set_room_name(const char* value);
+  inline void set_room_name(const char* value, size_t size);
+  inline ::std::string* mutable_room_name();
+  inline ::std::string* release_room_name();
+  inline void set_allocated_room_name(::std::string* room_name);
+
+  // @@protoc_insertion_point(class_scope:Room)
+ private:
+  inline void set_has_what();
+  inline void clear_has_what();
+  inline void set_has_room_name();
+  inline void clear_has_room_name();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* what_;
+  ::std::string* room_name_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static Room* default_instance_;
 };
 // ===================================================================
 
@@ -778,6 +983,290 @@ inline void Status::set_login(::google::protobuf::int32 value) {
   set_has_login();
   login_ = value;
   // @@protoc_insertion_point(field_set:Status.login)
+}
+
+// optional int32 create_room = 3;
+inline bool Status::has_create_room() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Status::set_has_create_room() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Status::clear_has_create_room() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Status::clear_create_room() {
+  create_room_ = 0;
+  clear_has_create_room();
+}
+inline ::google::protobuf::int32 Status::create_room() const {
+  // @@protoc_insertion_point(field_get:Status.create_room)
+  return create_room_;
+}
+inline void Status::set_create_room(::google::protobuf::int32 value) {
+  set_has_create_room();
+  create_room_ = value;
+  // @@protoc_insertion_point(field_set:Status.create_room)
+}
+
+// optional int32 enter_room = 4;
+inline bool Status::has_enter_room() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Status::set_has_enter_room() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Status::clear_has_enter_room() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Status::clear_enter_room() {
+  enter_room_ = 0;
+  clear_has_enter_room();
+}
+inline ::google::protobuf::int32 Status::enter_room() const {
+  // @@protoc_insertion_point(field_get:Status.enter_room)
+  return enter_room_;
+}
+inline void Status::set_enter_room(::google::protobuf::int32 value) {
+  set_has_enter_room();
+  enter_room_ = value;
+  // @@protoc_insertion_point(field_set:Status.enter_room)
+}
+
+// -------------------------------------------------------------------
+
+// ChatMessage
+
+// optional string chat_message = 1;
+inline bool ChatMessage::has_chat_message() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ChatMessage::set_has_chat_message() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ChatMessage::clear_has_chat_message() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ChatMessage::clear_chat_message() {
+  if (chat_message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    chat_message_->clear();
+  }
+  clear_has_chat_message();
+}
+inline const ::std::string& ChatMessage::chat_message() const {
+  // @@protoc_insertion_point(field_get:ChatMessage.chat_message)
+  return *chat_message_;
+}
+inline void ChatMessage::set_chat_message(const ::std::string& value) {
+  set_has_chat_message();
+  if (chat_message_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    chat_message_ = new ::std::string;
+  }
+  chat_message_->assign(value);
+  // @@protoc_insertion_point(field_set:ChatMessage.chat_message)
+}
+inline void ChatMessage::set_chat_message(const char* value) {
+  set_has_chat_message();
+  if (chat_message_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    chat_message_ = new ::std::string;
+  }
+  chat_message_->assign(value);
+  // @@protoc_insertion_point(field_set_char:ChatMessage.chat_message)
+}
+inline void ChatMessage::set_chat_message(const char* value, size_t size) {
+  set_has_chat_message();
+  if (chat_message_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    chat_message_ = new ::std::string;
+  }
+  chat_message_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:ChatMessage.chat_message)
+}
+inline ::std::string* ChatMessage::mutable_chat_message() {
+  set_has_chat_message();
+  if (chat_message_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    chat_message_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:ChatMessage.chat_message)
+  return chat_message_;
+}
+inline ::std::string* ChatMessage::release_chat_message() {
+  clear_has_chat_message();
+  if (chat_message_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = chat_message_;
+    chat_message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void ChatMessage::set_allocated_chat_message(::std::string* chat_message) {
+  if (chat_message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete chat_message_;
+  }
+  if (chat_message) {
+    set_has_chat_message();
+    chat_message_ = chat_message;
+  } else {
+    clear_has_chat_message();
+    chat_message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:ChatMessage.chat_message)
+}
+
+// -------------------------------------------------------------------
+
+// Room
+
+// optional string what = 1;
+inline bool Room::has_what() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Room::set_has_what() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Room::clear_has_what() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Room::clear_what() {
+  if (what_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    what_->clear();
+  }
+  clear_has_what();
+}
+inline const ::std::string& Room::what() const {
+  // @@protoc_insertion_point(field_get:Room.what)
+  return *what_;
+}
+inline void Room::set_what(const ::std::string& value) {
+  set_has_what();
+  if (what_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    what_ = new ::std::string;
+  }
+  what_->assign(value);
+  // @@protoc_insertion_point(field_set:Room.what)
+}
+inline void Room::set_what(const char* value) {
+  set_has_what();
+  if (what_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    what_ = new ::std::string;
+  }
+  what_->assign(value);
+  // @@protoc_insertion_point(field_set_char:Room.what)
+}
+inline void Room::set_what(const char* value, size_t size) {
+  set_has_what();
+  if (what_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    what_ = new ::std::string;
+  }
+  what_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:Room.what)
+}
+inline ::std::string* Room::mutable_what() {
+  set_has_what();
+  if (what_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    what_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:Room.what)
+  return what_;
+}
+inline ::std::string* Room::release_what() {
+  clear_has_what();
+  if (what_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = what_;
+    what_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void Room::set_allocated_what(::std::string* what) {
+  if (what_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete what_;
+  }
+  if (what) {
+    set_has_what();
+    what_ = what;
+  } else {
+    clear_has_what();
+    what_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:Room.what)
+}
+
+// optional string room_name = 2;
+inline bool Room::has_room_name() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Room::set_has_room_name() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Room::clear_has_room_name() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Room::clear_room_name() {
+  if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    room_name_->clear();
+  }
+  clear_has_room_name();
+}
+inline const ::std::string& Room::room_name() const {
+  // @@protoc_insertion_point(field_get:Room.room_name)
+  return *room_name_;
+}
+inline void Room::set_room_name(const ::std::string& value) {
+  set_has_room_name();
+  if (room_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    room_name_ = new ::std::string;
+  }
+  room_name_->assign(value);
+  // @@protoc_insertion_point(field_set:Room.room_name)
+}
+inline void Room::set_room_name(const char* value) {
+  set_has_room_name();
+  if (room_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    room_name_ = new ::std::string;
+  }
+  room_name_->assign(value);
+  // @@protoc_insertion_point(field_set_char:Room.room_name)
+}
+inline void Room::set_room_name(const char* value, size_t size) {
+  set_has_room_name();
+  if (room_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    room_name_ = new ::std::string;
+  }
+  room_name_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:Room.room_name)
+}
+inline ::std::string* Room::mutable_room_name() {
+  set_has_room_name();
+  if (room_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    room_name_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:Room.room_name)
+  return room_name_;
+}
+inline ::std::string* Room::release_room_name() {
+  clear_has_room_name();
+  if (room_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = room_name_;
+    room_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void Room::set_allocated_room_name(::std::string* room_name) {
+  if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete room_name_;
+  }
+  if (room_name) {
+    set_has_room_name();
+    room_name_ = room_name;
+  } else {
+    clear_has_room_name();
+    room_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:Room.room_name)
 }
 
 

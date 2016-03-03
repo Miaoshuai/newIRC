@@ -16,29 +16,48 @@
 #include "mysql.h"
 #include <list>
 #include <string>
+#include <mutex>
 
-class User
-{
-    public:
-        std::string userName;
-        int fd;   
-};
 
 class MessageType
 {
     public:
         typedef std::shared_ptr<Login> LoginPtr;
         typedef std::shared_ptr<Register> RegisterPtr;
-        
-        MessageType(ProtobufCodec codec)
-            :codec_(codec)
+        typedef std::shared_ptr<ChatMessage> ChatMessagePtr;
+        typedef std::shared_ptr<Room> RoomPtr;
+
+        typedef std::list<netlib::connectionPtr> ConnectionList;
+        typedef std::shared_ptr<std::list<netlib::connectionPtr>> ConnectionListPtr;
+        class ConnectionsClass
+        {
+            public:
+                ConnectionsClass()
+                    :connections_(new std::list<netlib::connectionPtr>),
+                    mutex_(new std::mutex)
+                {}
+                std::mutex *mutex_;
+                ConnectionListPtr connections_;
+        };
+        typedef std::map<std::string,ConnectionsClass> RoomMap;
+        MessageType(ProtobufCodec &codec,Sql &sql)
+            :codec_(codec),
+            sql_(sql)
         {}
 
+        //处理聊天消息
+        void onChatMessage(netlib::connectionPtr conn,ChatMessagePtr message);
+
+        //处理登陆消息
         void onLogin(netlib::connectionPtr conn,LoginPtr message);
 
+        //处理注册消息
         void onRegister(netlib::connectionPtr conn,RegisterPtr message);
+
+        //处理房间消息
+        void onRoom(netlib::connectionPtr conn,RoomPtr message);
     private:
         Sql sql_;   //数据库
-        std::list<std::shared_ptr<User>> userList_;       
+        RoomMap rooms_;
         ProtobufCodec codec_;
 };

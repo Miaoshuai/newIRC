@@ -7,8 +7,11 @@
  =======================================================*/
 #pragma once
 
+#include <mutex>
+#include "message.h"
+
 //检查俩次密码是否相同
-bool checkPassword(const RegisterPtr & message)
+bool checkPassword(MessageType::RegisterPtr &message)
 {
     if(message->password1() == message->password2())
     {
@@ -20,8 +23,24 @@ bool checkPassword(const RegisterPtr & message)
     }
 }
 
+
 //判断该用户名是否已经存在
-bool isUserexist(const RegisterPtr & message,const Sql &sql)
+bool isUserExist(MessageType::RegisterPtr &message,Sql sql)
 {
-    return sql.operate("select userName from user where userName = "+message->user_name+"");      
+    if(sql.operate("select userName from User where userName = "+message->user_name()+""))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
+
+//注册新用户到user表
+bool registerUser(MessageType::RegisterPtr &message,Sql &sql)
+{
+    sql.operate("insert into user values("+message->user_name()+","+message->password1()+")");
+    return true;   
+}
+

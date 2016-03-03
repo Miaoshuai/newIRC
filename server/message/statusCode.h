@@ -9,13 +9,21 @@
 
 enum REGISTER
 {
-    SUCCEED = 1,
-    FAIL = -1   
+    REGISTER_SUCCEED = 1,
+    REGISTER_FAIL = -1   
 };
 
 enum LOGIN
 {
-    SUCCEED = 1,
-    FAIL = -1
+    LOGIN_SUCCEED = 2,
+    LOGIN_FAIL = -2
+};
+
+enum ROOM
+{
+    C_ROOM_SUCCEED = 3,
+    C_ROOM_FAIL = -3,
+    E_ROOM_SUCCEED = 4,
+    E_ROOM_FAIL = -4
 };
 

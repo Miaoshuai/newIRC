@@ -1,18 +1,31 @@
 message Login
 {
-    optional string user_name=1;
-    optional string password=2;
+    optional string user_name=1;//用户名
+    optional string password=2;//密码
 }
 
 message Register
 {
-    optional string user_name=1;
-    optional string password1=2;
-    optional string password2=3;
+    optional string user_name=1;//用户名
+    optional string password1=2;//第一次输入的密码
+    optional string password2=3;//第二次输入的密码
 }
 
 message Status
 {
     optional int32 register=1;//服务端返回客户端注册的状态
     optional int32 login=2;   //服务端返回客户端登陆的状态
+    optional int32 create_room=3;//返回创建房间的状态
+    optional int32 enter_room=4;//返回进入房间状态
+}
+
+message ChatMessage
+{
+    optional string chat_message=1;//聊天的消息
+}
+
+message Room
+{
+    optional string what=1;//干什么进入房间还是创建房间
+    optional string room_name=2;//房间名
 }
