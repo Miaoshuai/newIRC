@@ -12,6 +12,18 @@
 #include <memory>
 #include <string>
 #include "callback.h"
+#include <signal.h>
+
+class IgnoreSigPipe
+{
+    public:
+        IgnoreSigPipe()
+        {
+            signal(SIGPIPE,SIG_IGN);
+        }
+}
+
+IgnoreSigPipe initObj;
 
 namespace netlib
 {
