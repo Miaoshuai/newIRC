@@ -25,6 +25,8 @@ class Sql
         int getColNum(void);
 		//打印获得的操作结果
 		void print_result(void);
+        //释放保存在该连接的操作结果集
+        void freeResult(void);
 
 	private:
 		std::string server_ip;		//数据库地址

@@ -9,11 +9,12 @@
 #include <string>
 #include <mysql/mysql.h>
 #include "mysql.h"
-
+#include <stdio.h>
 
 //构造函数
-Sql::Sql(std::string ip,std::string name,std::string passwd,std::string database)
+Sql::Sql(const std::string ip,const std::string name,const std::string passwd,const std::string database)
 {
+    printf("000\n");
     //初始化自定义变量
     server_ip = ip;
     user_name = name;
@@ -48,6 +49,7 @@ bool Sql::operate(const std::string &operation)
 
     //将操作结果存储在结果集
     mysql_res = mysql_use_result(mysql_conn);
+    mysql_free_result(mysql_res);
     return true;
 }
 
