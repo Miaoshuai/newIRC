@@ -15,7 +15,8 @@
 using namespace netlib;
 
 EventLoop::EventLoop(int eventFd)
-    :eventFd_(eventFd),epoll_(new Epoll(1024))
+    :eventFd_(eventFd),epoll_(new Epoll(1024)),
+    objectPool_(1024,0,epoll_)
 {
     //将eventFd_添加到epoll事件表中
     epoll_->addFd(eventFd_);
@@ -69,8 +70,10 @@ void EventLoop::handleEventFdRead(void)
     assert(count == sizeof(fd));
     //将新来的套接字添加进epoll事件表中
     epoll_->addFd((int)fd);
-    //将新连接插入到封装成connection然后插入到connectionMap中
-    connectionMap_.insert(std::pair<int,std::shared_ptr<Connection>>(fd,std::make_shared<Connection>(fd,epoll_)));
+    //从连接池中取出新连接,并给智能指针自定义删除器，将连接放回连接池
+    std::shared_ptr<Connection> connectionPtr(objectPool_.getObject(),[&](Connection *p){objectPool_.giveBackObject(p);});
+    connectionPtr->fd_ = fd;
+    connectionMap_.insert(std::pair<int,std::shared_ptr<Connection>>(fd,connectionPtr));
 }
 
 void EventLoop::handleRead(int fd)

@@ -8,13 +8,13 @@
 #include "server.h"
 #include <memory>
 #include <string>
+#include <stdio.h>
 
 using namespace netlib;
 
 Server::Server(std::string ip,int port,int loopNumber)
     :baseLoopPtr_(std::make_shared<BaseLoop>(ip,port,loopNumber))
 {
-    
 }
 
 Server::~Server()
@@ -28,5 +28,5 @@ void Server::start()
     baseLoopPtr_->setMessageCallback(messageCallback_);   //设置读回调函数
     baseLoopPtr_->setCloseCallback(closeCallback_);  //设置关闭回调函数
     baseLoopPtr_->setWriteCompleteCallback(writeCompleteCallback_);
-    baseLoopPtr_->start();                          //开始循环
+    baseLoopPtr_->start();//开始循环
 }

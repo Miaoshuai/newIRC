@@ -43,7 +43,12 @@ int BaseLoop::createListenFd(void)
 
     int sock = socket(PF_INET,SOCK_STREAM,0);
     assert(sock >= 0);
-    
+
+    int optval = 1;
+    if(setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,(void *)&optval,sizeof(int)) < 0)
+    {
+        printf("端口绑定失败!");
+    }    
     int ret = bind(sock,(struct sockaddr*)&address,sizeof(address));
     assert(ret == 0);
 
