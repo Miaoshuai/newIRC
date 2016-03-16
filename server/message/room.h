@@ -10,12 +10,16 @@
 #include "message.h"
 #include <string>
 #include <mutex>
+#include <stdio.h>
+#include "timestamp.h"
+#include <iostream>
 
 //检查room消息是注册新房间还是进入此房间
-bool checkRoomMessage(MessageType::RoomPtr message)
+bool checkRoomMessage(MessageType::RoomPtr &message)
 {
+    printf("111\n");
     std::string what(message->what());
-    if(what == "new")
+    if(what == "create")
     {
         return true;
     }
@@ -26,33 +30,57 @@ bool checkRoomMessage(MessageType::RoomPtr message)
 }
 
 //注册新房间
-bool registerRoom(MessageType::RoomPtr message,Sql sql)
+bool registerRoom(MessageType::RoomPtr &message,Sql &sql,netlib::connectionPtr &conn)
 {
-    if(!sql.operate("select roomName from Room where room = "+message->room_name()+""))
+    //printf("222\n");
+    /*char temp1[200];
+    snprintf(temp1,sizeof(temp1),"select roomName from Room where roomName = '%s'",message->room_name().c_str());
+    if(!sql.operate(temp1))
+    {
+        return false;
+    }*/
+    
+    printf("333\n");
+    std::cout<<"roomName:"<<message->room_name()<<std::endl;
+    char temp2[200];
+    netlib::Timestamp stamp;
+    snprintf(temp2,sizeof(temp2),"insert into Room values('%s','%s','%s')",conn->ConnectionName_.c_str(),message->room_name().c_str(),stamp.toStringTime());
+    if(!sql.operate(temp2))
     {
         return false;
     }
-    else
-    {
-        if(!sql.operate("insert into Room values("+message->room_name()+")"))
-        {
-            return false;
-        }
-    }
+    
+    printf("444\n");
     return true;
 }
 
-bool isRoomExist(const MessageType::RoomMap &rooms,MessageType::RoomPtr & message)
+//该房间是否存在于数据库
+bool isRoomExist(MessageType::RoomPtr &message,Sql &sql)
+{
+    char temp[200];
+    std::cout<<message->room_name()<<std::endl;
+    snprintf(temp,sizeof(temp),"select roomName from Room where roomName = '%s'",message->room_name().c_str());
+    if(!sql.operate(temp))
+    {
+        printf("555\n");
+        return true;
+    }
+    else
+    {
+        printf("666\n");
+        return false;
+    }
+}
+
+//该房间是否在线
+bool isRoomOnline(MessageType::RoomMap &rooms,MessageType::RoomPtr &message)
 {
     auto it = rooms.find(message->room_name());
     if(it != rooms.end())
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 //进入房间
@@ -64,7 +92,7 @@ bool enterRoom(MessageType::RoomMap rooms,netlib::connectionPtr conn,MessageType
     }
     else
     {
-        if(!isRoomExist(rooms,message))
+        if(!isRoomOnline(rooms,message))
         {
             //向RoomMap中插入新房间
             MessageType::ConnectionsClass connections;

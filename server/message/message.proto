@@ -24,8 +24,12 @@ message ChatMessage
     optional string chat_message=1;//聊天的消息
 }
 
-message Room
+message RegisterRoom
 {
-    optional string what=1;//干什么进入房间还是创建房间
-    optional string room_name=2;//房间名
+    optional string room_name=1;//房间名
+}
+
+message EnterRoom
+{
+    optional string room_name=1;//房间名
 }

@@ -30,9 +30,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* ChatMessage_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ChatMessage_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Room_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* RegisterRoom_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Room_reflection_ = NULL;
+  RegisterRoom_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EnterRoom_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  EnterRoom_reflection_ = NULL;
 
 }  // namespace
 
@@ -109,22 +112,36 @@ void protobuf_AssignDesc_message_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ChatMessage));
-  Room_descriptor_ = file->message_type(4);
-  static const int Room_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Room, what_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Room, room_name_),
+  RegisterRoom_descriptor_ = file->message_type(4);
+  static const int RegisterRoom_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRoom, room_name_),
   };
-  Room_reflection_ =
+  RegisterRoom_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      Room_descriptor_,
-      Room::default_instance_,
-      Room_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Room, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Room, _unknown_fields_),
+      RegisterRoom_descriptor_,
+      RegisterRoom::default_instance_,
+      RegisterRoom_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRoom, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRoom, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(Room));
+      sizeof(RegisterRoom));
+  EnterRoom_descriptor_ = file->message_type(5);
+  static const int EnterRoom_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterRoom, room_name_),
+  };
+  EnterRoom_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      EnterRoom_descriptor_,
+      EnterRoom::default_instance_,
+      EnterRoom_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterRoom, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterRoom, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(EnterRoom));
 }
 
 namespace {
@@ -146,7 +163,9 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ChatMessage_descriptor_, &ChatMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    Room_descriptor_, &Room::default_instance());
+    RegisterRoom_descriptor_, &RegisterRoom::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    EnterRoom_descriptor_, &EnterRoom::default_instance());
 }
 
 }  // namespace
@@ -160,8 +179,10 @@ void protobuf_ShutdownFile_message_2eproto() {
   delete Status_reflection_;
   delete ChatMessage::default_instance_;
   delete ChatMessage_reflection_;
-  delete Room::default_instance_;
-  delete Room_reflection_;
+  delete RegisterRoom::default_instance_;
+  delete RegisterRoom_reflection_;
+  delete EnterRoom::default_instance_;
+  delete EnterRoom_reflection_;
 }
 
 void protobuf_AddDesc_message_2eproto() {
@@ -177,20 +198,22 @@ void protobuf_AddDesc_message_2eproto() {
     "ord2\030\003 \001(\t\"R\n\006Status\022\020\n\010register\030\001 \001(\005\022\r"
     "\n\005login\030\002 \001(\005\022\023\n\013create_room\030\003 \001(\005\022\022\n\nen"
     "ter_room\030\004 \001(\005\"#\n\013ChatMessage\022\024\n\014chat_me"
-    "ssage\030\001 \001(\t\"\'\n\004Room\022\014\n\004what\030\001 \001(\t\022\021\n\troo"
-    "m_name\030\002 \001(\t", 292);
+    "ssage\030\001 \001(\t\"!\n\014RegisterRoom\022\021\n\troom_name"
+    "\030\001 \001(\t\"\036\n\tEnterRoom\022\021\n\troom_name\030\001 \001(\t", 318);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "message.proto", &protobuf_RegisterTypes);
   Login::default_instance_ = new Login();
   Register::default_instance_ = new Register();
   Status::default_instance_ = new Status();
   ChatMessage::default_instance_ = new ChatMessage();
-  Room::default_instance_ = new Room();
+  RegisterRoom::default_instance_ = new RegisterRoom();
+  EnterRoom::default_instance_ = new EnterRoom();
   Login::default_instance_->InitAsDefaultInstance();
   Register::default_instance_->InitAsDefaultInstance();
   Status::default_instance_->InitAsDefaultInstance();
   ChatMessage::default_instance_->InitAsDefaultInstance();
-  Room::default_instance_->InitAsDefaultInstance();
+  RegisterRoom::default_instance_->InitAsDefaultInstance();
+  EnterRoom::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_message_2eproto);
 }
 
@@ -1464,43 +1487,38 @@ void ChatMessage::Swap(ChatMessage* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int Room::kWhatFieldNumber;
-const int Room::kRoomNameFieldNumber;
+const int RegisterRoom::kRoomNameFieldNumber;
 #endif  // !_MSC_VER
 
-Room::Room()
+RegisterRoom::RegisterRoom()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:Room)
+  // @@protoc_insertion_point(constructor:RegisterRoom)
 }
 
-void Room::InitAsDefaultInstance() {
+void RegisterRoom::InitAsDefaultInstance() {
 }
 
-Room::Room(const Room& from)
+RegisterRoom::RegisterRoom(const RegisterRoom& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:Room)
+  // @@protoc_insertion_point(copy_constructor:RegisterRoom)
 }
 
-void Room::SharedCtor() {
+void RegisterRoom::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  what_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   room_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-Room::~Room() {
-  // @@protoc_insertion_point(destructor:Room)
+RegisterRoom::~RegisterRoom() {
+  // @@protoc_insertion_point(destructor:RegisterRoom)
   SharedDtor();
 }
 
-void Room::SharedDtor() {
-  if (what_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete what_;
-  }
+void RegisterRoom::SharedDtor() {
   if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete room_name_;
   }
@@ -1508,74 +1526,50 @@ void Room::SharedDtor() {
   }
 }
 
-void Room::SetCachedSize(int size) const {
+void RegisterRoom::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Room::descriptor() {
+const ::google::protobuf::Descriptor* RegisterRoom::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return Room_descriptor_;
+  return RegisterRoom_descriptor_;
 }
 
-const Room& Room::default_instance() {
+const RegisterRoom& RegisterRoom::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_message_2eproto();
   return *default_instance_;
 }
 
-Room* Room::default_instance_ = NULL;
+RegisterRoom* RegisterRoom::default_instance_ = NULL;
 
-Room* Room::New() const {
-  return new Room;
+RegisterRoom* RegisterRoom::New() const {
+  return new RegisterRoom;
 }
 
-void Room::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    if (has_what()) {
-      if (what_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        what_->clear();
-      }
-    }
-    if (has_room_name()) {
-      if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        room_name_->clear();
-      }
+void RegisterRoom::Clear() {
+  if (has_room_name()) {
+    if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      room_name_->clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool Room::MergePartialFromCodedStream(
+bool RegisterRoom::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:Room)
+  // @@protoc_insertion_point(parse_start:RegisterRoom)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string what = 1;
+      // optional string room_name = 1;
       case 1: {
         if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_what()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->what().data(), this->what().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "what");
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_room_name;
-        break;
-      }
-
-      // optional string room_name = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_room_name:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_room_name()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -1603,59 +1597,38 @@ bool Room::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:Room)
+  // @@protoc_insertion_point(parse_success:RegisterRoom)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:Room)
+  // @@protoc_insertion_point(parse_failure:RegisterRoom)
   return false;
 #undef DO_
 }
 
-void Room::SerializeWithCachedSizes(
+void RegisterRoom::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Room)
-  // optional string what = 1;
-  if (has_what()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->what().data(), this->what().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "what");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->what(), output);
-  }
-
-  // optional string room_name = 2;
+  // @@protoc_insertion_point(serialize_start:RegisterRoom)
+  // optional string room_name = 1;
   if (has_room_name()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->room_name().data(), this->room_name().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "room_name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->room_name(), output);
+      1, this->room_name(), output);
   }
 
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:Room)
+  // @@protoc_insertion_point(serialize_end:RegisterRoom)
 }
 
-::google::protobuf::uint8* Room::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RegisterRoom::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Room)
-  // optional string what = 1;
-  if (has_what()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->what().data(), this->what().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "what");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->what(), target);
-  }
-
-  // optional string room_name = 2;
+  // @@protoc_insertion_point(serialize_to_array_start:RegisterRoom)
+  // optional string room_name = 1;
   if (has_room_name()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->room_name().data(), this->room_name().length(),
@@ -1663,29 +1636,22 @@ void Room::SerializeWithCachedSizes(
       "room_name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->room_name(), target);
+        1, this->room_name(), target);
   }
 
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Room)
+  // @@protoc_insertion_point(serialize_to_array_end:RegisterRoom)
   return target;
 }
 
-int Room::ByteSize() const {
+int RegisterRoom::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional string what = 1;
-    if (has_what()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->what());
-    }
-
-    // optional string room_name = 2;
+    // optional string room_name = 1;
     if (has_room_name()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -1704,10 +1670,10 @@ int Room::ByteSize() const {
   return total_size;
 }
 
-void Room::MergeFrom(const ::google::protobuf::Message& from) {
+void RegisterRoom::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const Room* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const Room*>(
+  const RegisterRoom* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RegisterRoom*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1716,12 +1682,9 @@ void Room::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void Room::MergeFrom(const Room& from) {
+void RegisterRoom::MergeFrom(const RegisterRoom& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_what()) {
-      set_what(from.what());
-    }
     if (from.has_room_name()) {
       set_room_name(from.room_name());
     }
@@ -1729,26 +1692,25 @@ void Room::MergeFrom(const Room& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void Room::CopyFrom(const ::google::protobuf::Message& from) {
+void RegisterRoom::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Room::CopyFrom(const Room& from) {
+void RegisterRoom::CopyFrom(const RegisterRoom& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Room::IsInitialized() const {
+bool RegisterRoom::IsInitialized() const {
 
   return true;
 }
 
-void Room::Swap(Room* other) {
+void RegisterRoom::Swap(RegisterRoom* other) {
   if (other != this) {
-    std::swap(what_, other->what_);
     std::swap(room_name_, other->room_name_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -1756,11 +1718,254 @@ void Room::Swap(Room* other) {
   }
 }
 
-::google::protobuf::Metadata Room::GetMetadata() const {
+::google::protobuf::Metadata RegisterRoom::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Room_descriptor_;
-  metadata.reflection = Room_reflection_;
+  metadata.descriptor = RegisterRoom_descriptor_;
+  metadata.reflection = RegisterRoom_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int EnterRoom::kRoomNameFieldNumber;
+#endif  // !_MSC_VER
+
+EnterRoom::EnterRoom()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:EnterRoom)
+}
+
+void EnterRoom::InitAsDefaultInstance() {
+}
+
+EnterRoom::EnterRoom(const EnterRoom& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:EnterRoom)
+}
+
+void EnterRoom::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  room_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+EnterRoom::~EnterRoom() {
+  // @@protoc_insertion_point(destructor:EnterRoom)
+  SharedDtor();
+}
+
+void EnterRoom::SharedDtor() {
+  if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete room_name_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void EnterRoom::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* EnterRoom::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return EnterRoom_descriptor_;
+}
+
+const EnterRoom& EnterRoom::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_message_2eproto();
+  return *default_instance_;
+}
+
+EnterRoom* EnterRoom::default_instance_ = NULL;
+
+EnterRoom* EnterRoom::New() const {
+  return new EnterRoom;
+}
+
+void EnterRoom::Clear() {
+  if (has_room_name()) {
+    if (room_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      room_name_->clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool EnterRoom::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:EnterRoom)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string room_name = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_room_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->room_name().data(), this->room_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "room_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:EnterRoom)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:EnterRoom)
+  return false;
+#undef DO_
+}
+
+void EnterRoom::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:EnterRoom)
+  // optional string room_name = 1;
+  if (has_room_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->room_name().data(), this->room_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "room_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->room_name(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:EnterRoom)
+}
+
+::google::protobuf::uint8* EnterRoom::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:EnterRoom)
+  // optional string room_name = 1;
+  if (has_room_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->room_name().data(), this->room_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "room_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->room_name(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:EnterRoom)
+  return target;
+}
+
+int EnterRoom::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string room_name = 1;
+    if (has_room_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->room_name());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EnterRoom::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const EnterRoom* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const EnterRoom*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void EnterRoom::MergeFrom(const EnterRoom& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_room_name()) {
+      set_room_name(from.room_name());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void EnterRoom::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EnterRoom::CopyFrom(const EnterRoom& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EnterRoom::IsInitialized() const {
+
+  return true;
+}
+
+void EnterRoom::Swap(EnterRoom* other) {
+  if (other != this) {
+    std::swap(room_name_, other->room_name_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata EnterRoom::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = EnterRoom_descriptor_;
+  metadata.reflection = EnterRoom_reflection_;
   return metadata;
 }
 

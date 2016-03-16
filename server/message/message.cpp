@@ -13,40 +13,50 @@
 #include "login.h"
 #include "chatMessage.h"
 #include "statusCode.h"
-#include "room.h"
+#include "enterRoom.h"
+#include "registerRoom.h"
 #include <iostream>
 #include <assert.h>
+#include <stdio.h>
 
-
-void MessageType::onRoom(netlib::connectionPtr conn,RoomPtr message)
+void MessageType::onRegisterRoom(netlib::connectionPtr conn,RegisterRoomPtr message)
 {
-   if(checkRoomMessage(message))
-   {
-        Status status;
-        status.set_create_room(ROOM::C_ROOM_SUCCEED);
-        if(!registerRoom(message,sql_))
+    Status status;
+    std::cout<<"rename:"<<message->room_name()<<std::endl;
+    //如果用户不存在
+    if(!isRoomExist(message,sql_))
+    {
+        if(!registerRoom(message,sql_,conn))
         {
             status.set_create_room(ROOM::C_ROOM_FAIL);
-            //出错日志
-        }    
-        codec_.fillEmptyBuffer(&conn->outputBuffer_,status);
-        conn->send();        
-   }
-   else
-   {    Status status;
-        status.set_enter_room(ROOM::E_ROOM_SUCCEED);
-        if(!enterRoom(rooms_,conn,message,sql_))
-        {
-            status.set_enter_room(ROOM::E_ROOM_FAIL);
-            //出错日志      
         }
         else
         {
-            conn->rooName_ = message->room_name();
+            status.set_create_room(ROOM::C_ROOM_SUCCEED);
         }
-        codec_.fillEmptyBuffer(&conn->outputBuffer_,status);
-        conn->send();        
-   } 
+    }
+    else
+    {
+        status.set_create_room(ROOM::C_ROOM_FAIL);
+    }
+    codec_.fillEmptyBuffer(&conn->outputBuffer_,status);
+    conn->send();
+}
+
+void MessageType::onEnterRoom(netlib::connectionPtr conn,EnterRoomPtr message)
+{
+    Status status;
+    if(!enterRoom(rooms_,conn,message,sql_))
+    {
+        status.set_enter_room(ROOM::E_ROOM_FAIL);
+    }
+    else
+    {
+        conn->rooName_ = message->room_name();
+        status.set_enter_room(ROOM::E_ROOM_SUCCEED);
+    }
+    codec_.fillEmptyBuffer(&conn->outputBuffer_,status);
+    conn->send();
 }
 
 
@@ -64,6 +74,7 @@ void MessageType::onChatMessage(netlib::connectionPtr conn,ChatMessagePtr messag
 void MessageType::onLogin(netlib::connectionPtr conn,LoginPtr message)
 {
     Status status;
+    std::cout<<"user_name:"<<message->user_name()<<std::endl;
     if(!checkUserAndPassword(message,sql_))
     {
         status.set_login(LOGIN::LOGIN_FAIL);      
@@ -73,6 +84,7 @@ void MessageType::onLogin(netlib::connectionPtr conn,LoginPtr message)
         status.set_login(LOGIN::LOGIN_SUCCEED);
         //设置conn的connectionName_
         conn->ConnectionName_ = message->user_name();
+        printf("登陆成功\n");
     }
     codec_.fillEmptyBuffer(&conn->outputBuffer_,status);
     conn->send();   
@@ -82,8 +94,9 @@ void MessageType::onRegister(netlib::connectionPtr conn,RegisterPtr message)
 {
     //判断该用户名是否已经存在
     Status status;   
-    if(isUserExist(message,sql_) || !checkPassword(message))
+    if(isUserExist(message,sql_))
     {
+        if(!checkPassword(message))
         status.set_register_(REGISTER::REGISTER_FAIL);                       
     }
     else

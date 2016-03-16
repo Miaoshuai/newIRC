@@ -17,7 +17,7 @@
 #include <list>
 #include <string>
 #include <mutex>
-
+#include <stdio.h>
 
 class MessageType
 {
@@ -25,7 +25,8 @@ class MessageType
         typedef std::shared_ptr<Login> LoginPtr;
         typedef std::shared_ptr<Register> RegisterPtr;
         typedef std::shared_ptr<ChatMessage> ChatMessagePtr;
-        typedef std::shared_ptr<Room> RoomPtr;
+        typedef std::shared_ptr<RegisterRoom> RegisterRoomPtr;
+        typedef std::shared_ptr<EnterRoom> EnterRoomPtr;
 
         typedef std::list<netlib::connectionPtr> ConnectionList;
         typedef std::shared_ptr<std::list<netlib::connectionPtr>> ConnectionListPtr;
@@ -35,15 +36,17 @@ class MessageType
                 ConnectionsClass()
                     :connections_(new std::list<netlib::connectionPtr>),
                     mutex_(new std::mutex)
-                {}
+                {
+                }
                 std::mutex *mutex_;
                 ConnectionListPtr connections_;
         };
         typedef std::map<std::string,ConnectionsClass> RoomMap;
-        MessageType(ProtobufCodec &codec,Sql &sql)
+        MessageType(ProtobufCodec &codec)
             :codec_(codec),
-            sql_(sql)
-        {}
+            sql_("127.0.0.1","root","kaiji","IRC")
+        {
+        }
 
         //处理聊天消息
         void onChatMessage(netlib::connectionPtr conn,ChatMessagePtr message);
@@ -54,8 +57,11 @@ class MessageType
         //处理注册消息
         void onRegister(netlib::connectionPtr conn,RegisterPtr message);
 
-        //处理房间消息
-        void onRoom(netlib::connectionPtr conn,RoomPtr message);
+        //处理注册房间消息
+        void onRegisterRoom(netlib::connectionPtr conn,RegisterRoomPtr message);
+
+        //处理加入房间的消息
+        void onEnterRoom(netlib::connectionPtr conn,EnterRoomPtr message);
     private:
         Sql sql_;   //数据库
         RoomMap rooms_;
